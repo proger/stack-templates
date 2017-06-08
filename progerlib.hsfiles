@@ -85,6 +85,7 @@ test-suite test
   build-depends:       base
                      , {{name}}
                      , hspec
+                     , QuickCheck
 
   ghc-options:         -Wincomplete-patterns
                        -threaded -rtsopts -with-rtsopts=-N
@@ -100,6 +101,7 @@ source-repository head
 module {{pkgname}}{{^pkgname}}{{name}}{{/pkgname}}Spec where
 
 import Test.Hspec
+import Test.QuickCheck
 
 import {{pkgname}}{{^pkgname}}{{name}}{{/pkgname}}
 
@@ -109,11 +111,16 @@ main :: IO ()
 main = hspec spec
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   it "evals something" $ (1+1) `shouldBe` 2
   it "prints something" $ repl `shouldReturn` ()
   it "is a stub" $ do
     pending
+
+  describe "read" $ do
+    context "when used with ints" $ do
+      it "is inverse to show" $ property $
+        \x -> (read . show) x == (x :: Int)    
 
 {-# START_FILE src/{{pkgname}}{{^pkgname}}{{name}}{{/pkgname}}.hs #-}
 module {{pkgname}}{{^pkgname}}{{name}}{{/pkgname}} (
