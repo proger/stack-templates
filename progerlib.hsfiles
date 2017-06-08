@@ -71,7 +71,7 @@ executable benchmark
   build-depends:       base
                      , criterion
                      , random
-                     , pnp
+                     , {{name}}
 
   ghc-options:         -Wincomplete-patterns
                        -threaded -rtsopts -with-rtsopts=-N
