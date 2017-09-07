@@ -13,6 +13,7 @@ ghc-options:
   - -Wno-unused-imports
   - -Wno-type-defaults
   - -Wincomplete-patterns
+  - -Wno-partial-type-signatures
 
 default-extensions:
   - OverloadedStrings
@@ -25,6 +26,7 @@ default-extensions:
   - DeriveFunctor
   - DeriveGeneric
   - GeneralizedNewtypeDeriving
+  - PartialTypeSignatures
 
 dependencies:
   - base
